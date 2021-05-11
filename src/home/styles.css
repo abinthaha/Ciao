@@ -1,0 +1,106 @@
+.question {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.question span {
+    padding: 10px;
+    background-color: #eee;
+    color: #000;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.eachrow {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.eachrow .typewriter-text {
+    flex: 1;
+}
+
+.image {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    border-radius: 50%;
+}
+
+.eachrow:last-child .typewriter-text::after {
+    content: '';
+    font-weight: 100;
+    font-size: 30px;
+    display: inline-block;
+    width: 10px;
+    height: 1px;
+    background-color: #88ff00;
+    margin-left: 5px;
+    -webkit-animation: 1s blink step-end infinite;
+    -moz-animation: 1s blink step-end infinite;
+    -ms-animation: 1s blink step-end infinite;
+    -o-animation: 1s blink step-end infinite;
+    animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #88ff00;
+    }
+}
+
+@-moz-keyframes blink {
+
+    from,
+    to {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #88ff00;
+    }
+}
+
+@-webkit-keyframes blink {
+
+    from,
+    to {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #88ff00;
+    }
+}
+
+@-ms-keyframes blink {
+
+    from,
+    to {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #88ff00;
+    }
+}
+
+@-o-keyframes blink {
+
+    from,
+    to {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: #88ff00;
+    }
+}
