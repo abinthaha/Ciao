@@ -131,15 +131,7 @@ export class TypeWriter extends React.Component {
     }
   };
   getImage(name) {
-    let imgUrl = '';
-    switch (name) {
-      case "Anand":
-        imgUrl =
-          "../assets/Anand.jpg";
-        break;
-      default:
-        break;
-    }
+    let imgUrl = `https://github.com/abinthaha/Ciao/blob/master/src/assets/${name}.jpg`;
     return <span className="image" style={{ backgroundImage: `url(${imgUrl})` }}></span>;
   }
   render() {
