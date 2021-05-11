@@ -1,14 +1,24 @@
 .question {
     text-align: right;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .question span {
     padding: 10px;
+    display: inline-block;
     background-color: #eee;
     color: #000;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.question .disable {
+    pointer-events: none;
+}
+
+.page-heading {
+    font-size: 40px;
+    text-align: center;
 }
 
 .eachrow {
@@ -27,6 +37,15 @@
     height: 100px;
     background-size: contain;
     border-radius: 50%;
+}
+
+.link {
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.link a {
+    color: #14abe4;
 }
 
 .eachrow:last-child .typewriter-text::after {

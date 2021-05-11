@@ -7,7 +7,7 @@ class HomeComponent extends React.Component {
     this.state = {
       totalQuestions: [
         {
-          word: "As you know, today is my last working day in EY",
+          word: "Hi all, as you know, today is my last working day in EY",
           question: "I didn't knew",
         },
         {
@@ -15,7 +15,7 @@ class HomeComponent extends React.Component {
           question: "Oh, well... Ok.. So ?",
         },
         {
-          word: "So what? Thank you all for all the learning and maturing this job has gifted me with",
+          word: "So what? Thanks to all of you for all the learning and maturing this job has gifted me with",
           question: "Ok Thanks to you too!, whats your next plan?",
         },
         {
@@ -43,56 +43,67 @@ class HomeComponent extends React.Component {
         },
         {
           word: "Then.. Shaswath and Sreenu, how can I forget you guys. Even though we were in only a few projects, our collaborative work made the dream work happen",
-          question: "hmm, seems like a professional, then who?",
+          question: "Long list??? Can you just.. combine all?",
           isName: "Shaswath",
         },
         {
-          word: "",
-          question: "hmm, seems like a professional, then who?",
+          word: "Hmm.. Let me see.. Aswathy P Kumar, Saumya Cherian, Senthil, Shubham, Jeffin Jacob, Nikhitha Prasad, Ashly Sunny, Arjun Sudhamol, Jinu Joy, Jasna, Sreelaskhmi, Vishnu K Kumar, Sujith Thomas, Aby Alex, Ashwin Kumar, Dibin Joseph, Harikrishnan, Arun Raj, Nandu R Nair, Vishnu G Sivan, Archish, Vignesh ........ Most of these people are not working in EY now, but those made my life in EY the best. There are more",
+          question: "Hope you had a good time here in EY",
+        },
+        {
+          word: "It was awesome, really good",
+          question:
+            "Ok, then I think this is the place where we wave our hands and say Good Bye, share your contact details",
         },
       ],
       pages: [
         {
-          word: "As you know, today is my last working day in EY",
-          question: "I didn't knew",
+          word: "Hi all, as you know, today is my last working day in EY",
+          question: "Mm..., I didn't knew",
         },
       ],
       currentSection: 1,
     };
   }
-  componentDidMount = () => {
-    this.setState({
-        pages: this.state.totalQuestions
-    })
-  }
-
   handleQuestion = () => {
     let { pages, currentSection, totalQuestions } = this.state;
     if (currentSection < totalQuestions.length) {
       pages.push(totalQuestions[currentSection]);
-      this.setState({
-        ...this.state,
-        currentSection: currentSection + 1,
-        pages,
-      });
+      this.setState(
+        {
+          ...this.state,
+          currentSection: currentSection + 1,
+          pages,
+        },
+        () => {
+          console.log(pages);
+        }
+      );
+    } else {
+      window.open("https://abinthaha.github.io/Dashboard");
     }
   };
 
   render() {
     let { pages, currentSection } = this.state;
-    return pages.map((item, index) => {
-      return (
-        index < currentSection && (
-          <TypeWriter
-            key={"type_" + index}
-            text={item.word}
-            isName={item.isName}
-            question={item.question}
-            handleQuestion={this.handleQuestion}
-          />
-        )
-      );
-    });
+    return (
+      <>
+        <h2 className='page-heading'>Thank You</h2>
+        {pages.map((item, index) => {
+          return (
+            index < currentSection && (
+              <TypeWriter
+                key={"type_" + index}
+                text={item.word}
+                isName={item.isName}
+                question={item.question}
+                handleQuestion={this.handleQuestion}
+              />
+            )
+          );
+        })}
+      </>
+    );
   }
 }
 
@@ -120,7 +131,7 @@ export class TypeWriter extends React.Component {
           clearInterval(typeWriter);
         }
       }.bind(this),
-      0
+      50
     );
   }
   handleClick = (ev) => {
@@ -131,8 +142,32 @@ export class TypeWriter extends React.Component {
     }
   };
   getImage(name) {
-    let imgUrl = `https://github.com/abinthaha/Ciao/blob/master/src/assets/${name}.jpg`;
-    return <span className="image" style={{ backgroundImage: `url(${imgUrl})` }}></span>;
+    if (name !== "Shaswath") {
+      let imgUrl = `https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/${name}.jpg`;
+      return (
+        <span
+          className="image"
+          style={{ backgroundImage: `url(${imgUrl})` }}
+        ></span>
+      );
+    } else {
+      return (
+        <>
+          <span
+            className="image"
+            style={{
+              backgroundImage: `url(https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/Shaswath.jpg)`,
+            }}
+          ></span>
+          <span
+            className="image"
+            style={{
+              backgroundImage: `url(https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/Sreenu.jpg)`,
+            }}
+          ></span>
+        </>
+      );
+    }
   }
   render() {
     let { slice } = this.state;
@@ -145,7 +180,12 @@ export class TypeWriter extends React.Component {
         </span>
         {slice.length === text.length && (
           <div className="question">
-            <span onClick={(ev) => this.handleClick(ev)}>{question}</span>
+            <span
+              className={slice.length !== text.length ? "disable" : ""}
+              onClick={(ev) => this.handleClick(ev)}
+            >
+              {question}
+            </span>
           </div>
         )}
       </section>
