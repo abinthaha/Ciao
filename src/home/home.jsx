@@ -5,103 +5,140 @@ class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       totalQuestions: [
         {
-          word: "Hi all, as you know, today is my last working day in EY",
-          question: "I didn't knew",
+          word: "Hi all, With lots of mixed emotions I would like to tell you all that today is my last day in EY.",
+          question: "Oh, I didn't knew",
         },
         {
-          word: "Ok, then... As you sure don´t know yet, aside from my only couple of teammates, today is my last day in EY",
+          word: "I am really grateful for all the learnings, experiences and achievements that I am gifted with from this place.",
           question: "Oh, well... Ok.. So ?",
         },
         {
-          word: "So what? Thanks to all of you for all the learning and maturing this job has gifted me with",
+          word: "I would like to extend my sincere thanks to everyone who helped me as a mentor, lead, or a friend. Without any one of you I wouldn't have got any of these experiences that I have now. I would really want to mention some of them before leaving.",
           question: "Ok Thanks to you too!, whats your next plan?",
         },
         {
-          word: "Somewhere else, doing the same things probably",
-          question:
-            "Oh is it? then why you wanted to change if it will be as same as EY?",
-        },
-        {
-          word: "Just for fun, I felt it is not the perfect time to settle somewhere safe and comfortable, so taking the risks and going for an adventure",
-          question: "Oh, well, any special thanks",
-        },
-        {
-          word: "Yeah, you bet, how can I go without thanking those who were with me?",
-          question: "That's good, Who's first?",
-        },
-        {
-          word: "Anand, who was my mentor and my lead, who guided me personally and professionally",
+          word: "Anand, who had been a lead as well as mentor and who had guided me professionally and personally.",
           question: "Then who?",
           isName: "Anand",
         },
         {
-          word: "Prateesh, my counsellor, who helped me to understand EY better, taught me the processes and etc",
+          word: "Prateesh, who had been my Counsellor. He helped me to understand EY better, taught me the processes and pushed me to work smart.",
           question: "hmm, seems like a professional, then who?",
           isName: "Prateesh",
         },
         {
-          word: "Then.. Shaswath and Sreenu, how can I forget you guys. Even though we were in only a few projects, our collaborative work made the dream work happen",
+          word: "Sreenu and Shaswath who had been amazing friends more than colleagues. I will cherish all the times we had together.",
           question: "Long list??? Can you just.. combine all?",
           isName: "Shaswath",
         },
         {
-          word: "Hmm.. Let me see.. Aswathy P Kumar, Saumya Cherian, Senthil, Shubham, Jeffin Jacob, Nikhitha Prasad, Ashly Sunny, Arjun Sudhamol, Jinu Joy, Jasna, Sreelaskhmi, Vishnu K Kumar, Sujith Thomas, Aby Alex, Ashwin Kumar, Dibin Joseph, Harikrishnan, Arun Raj, Nandu R Nair, Vishnu G Sivan, Archish, Vignesh ........ Most of these people are not working in EY now, but those made my life in EY the best. There are more",
+          word: "I want to mention Venkat, Aswathy, Saumya, Senthil, Shubham, Ashly who had been great teammates. Thank you all.",
           question: "Hope you had a good time here in EY",
         },
         {
-          word: "It was awesome, really good",
+          word: "Bidding you adieu",
           question:
             "Ok, then I think this is the place where we wave our hands and say Good Bye, share your contact details",
         },
       ],
       pages: [
         {
-          word: "Hi all, as you know, today is my last working day in EY",
-          question: "Mm..., I didn't knew",
+          word: "Hi all, With lots of mixed emotions I would like to tell you all that today is my last day in EY.",
+          question: "Oh, I didn't knew",
         },
       ],
       currentSection: 1,
     };
   }
+
+  componentDidMount = () => {
+    // let that = this;
+    // document.addEventListener("scroll", function (e) {
+    //   // lastKnownScrollPosition = window.scrollY;
+    //   that.handleQuestion();
+    // });
+    // document.addEventListener("click", function (e) {
+    //   // lastKnownScrollPosition = window.scrollY;
+    //   that.handleQuestion();
+    // });
+    // document.addEventListener("keypress", function (e) {
+    //   // lastKnownScrollPosition = window.scrollY;
+    //   that.handleQuestion();
+    // });
+  };
+
   handleQuestion = () => {
+    const { isLoading } = this.state;
     let { pages, currentSection, totalQuestions } = this.state;
-    if (currentSection < totalQuestions.length) {
-      pages.push(totalQuestions[currentSection]);
-      this.setState(
-        {
-          ...this.state,
-          currentSection: currentSection + 1,
-          pages,
-        },
-        () => {
-          console.log(pages);
-        }
-      );
-    } else {
-      window.open("https://abinthaha.github.io/Dashboard");
+    if (!isLoading) {
+      if (currentSection < totalQuestions.length) {
+        pages.push(totalQuestions[currentSection]);
+        this.setState(
+          {
+            ...this.state,
+            currentSection: currentSection + 1,
+            pages,
+          },
+          () => {
+            console.log(pages);
+          }
+        );
+      }
     }
   };
 
+  isLoading = (flag) => {
+    this.setState({ isLoading: flag }, () => {
+      if(flag === false) {
+        let tat = this;
+        setTimeout(function() {
+          tat.handleQuestion()
+        }, 1000)
+      }
+    });
+  };
+
   render() {
-    let { pages, currentSection } = this.state;
+    let { pages, currentSection, totalQuestions } = this.state;
     return (
       <>
-        <h2 className='page-heading'>Thank You</h2>
+        <h2 className="page-heading">Thank You</h2>
         {pages.map((item, index) => {
           return (
             index < currentSection && (
               <TypeWriter
                 key={"type_" + index}
                 text={item.word}
+                isLoading={this.isLoading}
                 isName={item.isName}
                 question={item.question}
-                handleQuestion={this.handleQuestion}
               />
             )
           );
         })}
+        {pages.length === totalQuestions.length && (
+          <section className="contact-wrapper">
+            <div className="contact-item">
+              <span>
+                <a href="mailto:iamabinthaha@gmail.com">Email</a>
+              </span>
+            </div>
+            <div className="contact-item">
+              <span>
+                <a
+                  rel="noreferrer"
+                  href="https://abinthaha.github.io/Dashboard"
+                  target="_blank"
+                >
+                  Homepage
+                </a>
+              </span>
+            </div>
+          </section>
+        )}
       </>
     );
   }
@@ -120,6 +157,7 @@ export class TypeWriter extends React.Component {
 
   setTypeWriter(word) {
     var index = 0;
+    this.props.isLoading(true);
     var typeWriter = setInterval(
       function () {
         this.setState({
@@ -129,18 +167,12 @@ export class TypeWriter extends React.Component {
 
         if (index > word.length) {
           clearInterval(typeWriter);
+          this.props.isLoading(false);
         }
       }.bind(this),
       50
     );
   }
-  handleClick = (ev) => {
-    ev.stopPropagation();
-    ev.preventDefault();
-    if (ev) {
-      this.props.handleQuestion();
-    }
-  };
   getImage(name) {
     if (name !== "Shaswath") {
       let imgUrl = `https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/${name}.jpg`;
@@ -156,13 +188,13 @@ export class TypeWriter extends React.Component {
           <span
             className="image"
             style={{
-              backgroundImage: `url(https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/Shaswath.jpg)`,
+              backgroundImage: `url(https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/Sreenu.jpg)`,
             }}
           ></span>
           <span
             className="image"
             style={{
-              backgroundImage: `url(https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/Sreenu.jpg)`,
+              backgroundImage: `url(https://raw.githubusercontent.com/abinthaha/Ciao/master/src/assets/Shaswath.jpg)`,
             }}
           ></span>
         </>
@@ -171,23 +203,13 @@ export class TypeWriter extends React.Component {
   }
   render() {
     let { slice } = this.state;
-    let { question, text, isName } = this.props;
+    let { isName } = this.props;
     return (
       <section className="eachrow">
-        <span className="typewriter-text">
+        <span className="typewriter-wrapper">
           {isName ? this.getImage(isName) : ""}
-          {slice}
+          <span className="typewriter-text">{slice}</span>
         </span>
-        {slice.length === text.length && (
-          <div className="question">
-            <span
-              className={slice.length !== text.length ? "disable" : ""}
-              onClick={(ev) => this.handleClick(ev)}
-            >
-              {question}
-            </span>
-          </div>
-        )}
       </section>
     );
   }
